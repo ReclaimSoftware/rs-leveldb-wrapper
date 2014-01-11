@@ -1,5 +1,7 @@
 **Yet another layer to append to the top of the abstraction stack between your code and LevelDB**
 
+[![Build Status](https://secure.travis-ci.org/ReclaimSoftware/rs-leveldb-wrapper.png)](http://travis-ci.org/ReclaimSoftware/rs-leveldb-wrapper)
+
 ```coffee
 wrapper = new LevelDBWrapper levelup_client
 
