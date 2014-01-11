@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --compilers coffee:coffee-script"
+  },
+  "dependencies": {
+    "async": "0.2.9",
+    "coffee-script": "1.6.3",
+    "leveldown": "0.10.2",
+    "levelup": "0.18.2",
+    "mocha": "1.13.0",
+    "underscore": "1.5.2"
+  }
+}
