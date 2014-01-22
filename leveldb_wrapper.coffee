@@ -1,5 +1,6 @@
 class LevelDBWrapper
-  constructor: (@levelup, opt={}) ->
+  constructor: (client, opt={}) ->
+    @levelup = client.levelup
     @_prefix = opt.prefix or ""
 
   _applyPrefix: (key) ->

@@ -1,2 +1,5 @@
 require('coffee-script');
-module.exports = require('./leveldb_wrapper');
+module.exports = {
+    LevelDBClient: require('./leveldb_client').LevelDBClient,
+    LevelDBWrapper: require('./leveldb_wrapper').LevelDBWrapper
+};

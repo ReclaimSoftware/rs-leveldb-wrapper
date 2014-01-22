@@ -1,11 +1,11 @@
 assert = require 'assert'
 async = require 'async'
-{LevelDBWrapper} = require '../leveldb_wrapper'
+{LevelDBClient, LevelDBWrapper} = require '../index'
 
 describe "LevelDBWrapper", () ->
-  dir = "#{__dirname}/temp"
-  levelup = require('levelup')(dir)
-  wrapper = new LevelDBWrapper levelup
+
+  client = new LevelDBClient "#{__dirname}/temp"
+  wrapper = new LevelDBWrapper client
 
 
   describe "get", () ->
