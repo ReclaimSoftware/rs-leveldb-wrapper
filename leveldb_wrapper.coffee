@@ -1,8 +1,12 @@
 class LevelDBWrapper
-  constructor: (@levelup) ->
+  constructor: (@levelup, opt={}) ->
+    @_prefix = opt.prefix or ""
 
-  get: (k, c=(->)) -> @levelup.get k, c
-  put: (k, v, c=(->)) -> @levelup.put k, v, c
+  _applyPrefix: (key) ->
+    @_prefix + key
+
+  get: (k, c=(->)) -> @levelup.get @_applyPrefix(k), c
+  put: (k, v, c=(->)) -> @levelup.put @_applyPrefix(k), v, c
 
   get_range: ({prefix}, c=(->)) ->
     return c new Error "prefix required" if not prefix?
@@ -15,6 +19,9 @@ class LevelDBWrapper
     # UTF-8 never contains FF, but keep this in mind when supporting Buffers
     end_bytes[end_bytes.length - 1] = last_byte + 1
     end = end_bytes.toString('utf8')
+
+    start = @_applyPrefix start
+    end = @_applyPrefix end
 
     rows = []
     @levelup.createReadStream({start, end})

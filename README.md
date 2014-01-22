@@ -3,7 +3,7 @@
 [![Build Status](https://secure.travis-ci.org/ReclaimSoftware/rs-leveldb-wrapper.png)](http://travis-ci.org/ReclaimSoftware/rs-leveldb-wrapper)
 
 ```coffee
-wrapper = new LevelDBWrapper levelup_client
+wrapper = new LevelDBWrapper levelup_client, {prefix: "foo:"}
 
 wrapper.get key, (e, value) ->
 
