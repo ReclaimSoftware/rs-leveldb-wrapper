@@ -47,6 +47,22 @@ describe "LevelDBWrapper", () ->
           ]
           done()
 
+    it "can be limited", (done) ->
+      async.series [
+        ((c) -> wrapper.put 'x9', 'v1', c)
+        ((c) -> wrapper.put 'x:', 'v2', c)
+        ((c) -> wrapper.put 'x:b', 'v4', c)
+        ((c) -> wrapper.put 'x:a', 'v3', c)
+        ((c) -> wrapper.put 'x;', 'v5', c)
+      ], () ->
+        wrapper.get_range {prefix: 'x:', limit: 2}, (e, rows) ->
+          assert.ok not e
+          assert.deepEqual rows, [
+            {key: 'x:', value: 'v2'}
+            {key: 'x:a', value: 'v3'}
+          ]
+          done()
+
     it "errors if you don't specify a prefix", (done) ->
       wrapper.get_range {}, (e) ->
         assert.equal e.message, "prefix required"

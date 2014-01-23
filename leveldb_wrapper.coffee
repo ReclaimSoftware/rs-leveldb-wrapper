@@ -9,7 +9,8 @@ class LevelDBWrapper
   get: (k, c=(->)) -> @levelup.get @_applyPrefix(k), c
   put: (k, v, c=(->)) -> @levelup.put @_applyPrefix(k), v, c
 
-  get_range: ({prefix}, c=(->)) ->
+  get_range: ({prefix, limit}, c=(->)) ->
+    limit ?= -1
     return c new Error "prefix required" if not prefix?
     return c new Error "prefix can't be empty" if prefix.length == 0
 
@@ -25,7 +26,7 @@ class LevelDBWrapper
     end = @_applyPrefix end
 
     rows = []
-    @levelup.createReadStream({start, end})
+    @levelup.createReadStream({start, end, limit})
       .on('data', (row) ->
         if row.key != end
           rows.push row)
