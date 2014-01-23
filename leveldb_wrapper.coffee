@@ -27,14 +27,15 @@ class LevelDBWrapper
 
     rows = []
     @levelup.createReadStream({start, end, limit})
-      .on('data', (row) ->
+      .on('data', (row) =>
         if row.key != end
+          row.key = row.key.substr @_prefix.length
           rows.push row)
-      .on('error', (e) ->
+      .on('error', (e) =>
         c e
         c = null # in case 'close' gets called after this
       )
-      .on('close', (() ->
+      .on('close', (() =>
         if c
           c null, rows
       ))

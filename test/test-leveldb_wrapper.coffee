@@ -5,7 +5,7 @@ async = require 'async'
 describe "LevelDBWrapper", () ->
 
   client = new LevelDBClient "#{__dirname}/temp"
-  wrapper = new LevelDBWrapper client
+  wrapper = new LevelDBWrapper client, prefix: "p:"
 
 
   describe "get", () ->
