@@ -28,6 +28,10 @@ describe "LevelDBWrapper", () ->
           done()
 
 
+  describe "put_batch", () ->
+    xit()
+
+
   describe "get_range", () ->
 
     it "gets a range", (done) ->

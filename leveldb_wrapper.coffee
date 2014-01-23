@@ -9,6 +9,17 @@ class LevelDBWrapper
   get: (k, c=(->)) -> @levelup.get @_applyPrefix(k), c
   put: (k, v, c=(->)) -> @levelup.put @_applyPrefix(k), v, c
 
+  put_batch: (rows, c=(->)) ->
+    ops = []
+    for row in rows
+      if row.key?
+        {key, value} = row
+      else
+        [key, value] = row
+      key = @_applyPrefix(key)
+      ops.push {type: 'put', key, value}
+    @levelup.batch ops, c
+
   get_range: ({prefix, limit}, c=(->)) ->
     limit ?= -1
     return c new Error "prefix required" if not prefix?
